@@ -118,9 +118,7 @@ class SiteAdmin(DjangoSiteAdmin):
     def domain_html(self, obj):
         return "{}".format(obj.domain)
 
-    @admin.action(
-        description=_("url")
-    )
+    @admin.action(description=_("url"))
     def linked_url(self, obj, text=_("open")):
         return format_html(
             '<a href="{}" target="_blank">{}</a>',
