@@ -1,4 +1,4 @@
-from django.conf.urls import include
+from django.urls import include
 
 from djangocms_multisite.urlresolvers import cms_multisite_url
 
