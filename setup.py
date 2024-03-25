@@ -2,6 +2,7 @@
 
 from setuptools import find_packages, setup
 
+
 setup(
     name="django-multisite-plus",
     version="0.7.2",
