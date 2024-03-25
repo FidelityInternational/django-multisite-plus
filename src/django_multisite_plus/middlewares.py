@@ -10,7 +10,7 @@ from multisite.models import Alias
 
 class CMSMultiSiteMiddleware(middleware.CMSMultiSiteMiddleware):
     def process_request(self, request):
-        super(CMSMultiSiteMiddleware, self).process_request(request)
+        super().process_request(request)
 
         if "django_multisite_plus.cms_urls" in sys.modules:
             reload(sys.modules["django_multisite_plus.cms_urls"])

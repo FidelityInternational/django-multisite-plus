@@ -209,7 +209,7 @@ class Site(models.Model):
             site.save()
 
     def save(self, **kwargs):
-        super(Site, self).save(**kwargs)
+        super().save(**kwargs)
         self.update_site()
 
 

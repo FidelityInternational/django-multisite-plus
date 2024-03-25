@@ -39,7 +39,7 @@ class SiteInline(admin.StackedInline):
 
     def get_readonly_fields(self, request, obj=None):
         if not settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
-            return super(SiteInline, self).get_readonly_fields(request, obj)
+            return super().get_readonly_fields(request, obj)
         return ["slug", "real_domain", "is_enabled", "extra_uwsgi_ini"]
 
 
@@ -47,16 +47,16 @@ class AliasInline(MultisiteAliasInline):
     def has_delete_permission(self, *args, **kwargs):
         if settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
             return False
-        return super(AliasInline, self).has_delete_permission(*args, **kwargs)
+        return super().has_delete_permission(*args, **kwargs)
 
     def has_add_permission(self, *args, **kwargs):
         if settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
             return False
-        return super(AliasInline, self).has_add_permission(*args, **kwargs)
+        return super().has_add_permission(*args, **kwargs)
 
     def get_readonly_fields(self, request, obj=None):
         if not settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
-            return super(AliasInline, self).get_readonly_fields(request, obj)
+            return super().get_readonly_fields(request, obj)
         return ["domain", "site", "is_canonical", "redirect_to_canonical"]
 
 
@@ -81,20 +81,20 @@ class SiteAdmin(DjangoSiteAdmin):
     def has_delete_permission(self, *args, **kwargs):
         if settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
             return False
-        return super(SiteAdmin, self).has_delete_permission(*args, **kwargs)
+        return super().has_delete_permission(*args, **kwargs)
 
     def has_add_permission(self, *args, **kwargs):
         if settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
             return False
-        return super(SiteAdmin, self).has_add_permission(*args, **kwargs)
+        return super().has_add_permission(*args, **kwargs)
 
     def get_readonly_fields(self, request, obj=None):
         if not settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
-            return super(SiteAdmin, self).get_readonly_fields(request, obj)
+            return super().get_readonly_fields(request, obj)
         return ["domain", "linked_url", "name"]
 
     def get_queryset(self, request):
-        qs = super(SiteAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request)
         return qs.prefetch_related("multisiteplus_site")
 
     @admin.display(
