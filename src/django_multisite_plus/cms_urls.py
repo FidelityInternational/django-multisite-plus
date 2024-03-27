@@ -1,8 +1,6 @@
-from django.urls import include
-
-from djangocms_multisite.urlresolvers import cms_multisite_url
+from django.urls import include, re_path
 
 
 urlpatterns = [
-    cms_multisite_url(r"^", include("cms.urls")),
+    re_path(r"^", include("cms.urls")),
 ]
