@@ -126,8 +126,7 @@ class Form(forms.BaseForm):
         MIDDLEWARE_CLASSES.insert(
             MIDDLEWARE_CLASSES.index(
                 "cms.middleware.utils.ApphookReloadMiddleware"
-            )
-            + 1,
+            ) + 1,
             "django_multisite_plus.middlewares.CMSMultiSiteMiddleware",
         )
 
