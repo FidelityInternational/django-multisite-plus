@@ -2,6 +2,12 @@
 Changelog
 =========
 
+Unreleased
+==================
+* Add compatibility with Django 4.2
+* Dropped support for Django < 3.1
+* Dropped support for python < 3.8
+
 
 0.7.2 (unreleased)
 ==================

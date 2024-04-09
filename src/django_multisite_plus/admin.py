@@ -39,7 +39,7 @@ class SiteInline(admin.StackedInline):
 
     def get_readonly_fields(self, request, obj=None):
         if not settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
-            return super(SiteInline, self).get_readonly_fields(request, obj)
+            return super().get_readonly_fields(request, obj)
         return ["slug", "real_domain", "is_enabled", "extra_uwsgi_ini"]
 
 
@@ -47,16 +47,16 @@ class AliasInline(MultisiteAliasInline):
     def has_delete_permission(self, *args, **kwargs):
         if settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
             return False
-        return super(AliasInline, self).has_delete_permission(*args, **kwargs)
+        return super().has_delete_permission(*args, **kwargs)
 
     def has_add_permission(self, *args, **kwargs):
         if settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
             return False
-        return super(AliasInline, self).has_add_permission(*args, **kwargs)
+        return super().has_add_permission(*args, **kwargs)
 
     def get_readonly_fields(self, request, obj=None):
         if not settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
-            return super(AliasInline, self).get_readonly_fields(request, obj)
+            return super().get_readonly_fields(request, obj)
         return ["domain", "site", "is_canonical", "redirect_to_canonical"]
 
 
@@ -81,41 +81,44 @@ class SiteAdmin(DjangoSiteAdmin):
     def has_delete_permission(self, *args, **kwargs):
         if settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
             return False
-        return super(SiteAdmin, self).has_delete_permission(*args, **kwargs)
+        return super().has_delete_permission(*args, **kwargs)
 
     def has_add_permission(self, *args, **kwargs):
         if settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
             return False
-        return super(SiteAdmin, self).has_add_permission(*args, **kwargs)
+        return super().has_add_permission(*args, **kwargs)
 
     def get_readonly_fields(self, request, obj=None):
         if not settings.DJANGO_MULTISITE_PLUS_REWRITE_DOMAINS:
-            return super(SiteAdmin, self).get_readonly_fields(request, obj)
+            return super().get_readonly_fields(request, obj)
         return ["domain", "linked_url", "name"]
 
     def get_queryset(self, request):
-        qs = super(SiteAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request)
         return qs.prefetch_related("multisiteplus_site")
 
+    @admin.display(
+        description=_("real domain"),
+        ordering="multisiteplus_site__real_domain",
+    )
     def real_domain(self, obj):
         return obj.multisiteplus_site.real_domain
 
-    real_domain.short_description = _("real domain")
-    real_domain.admin_order_field = "multisiteplus_site__real_domain"
-
+    @admin.display(
+        description=_("slug"),
+        ordering="multisiteplus_site__slug",
+    )
     def slug(self, obj):
         return obj.multisiteplus_site.slug
 
-    slug.short_description = _("slug")
-    slug.admin_order_field = "multisiteplus_site__slug"
-
+    @admin.display(
+        description=_("domain"),
+        ordering="domain",
+    )
     def domain_html(self, obj):
         return "{}".format(obj.domain)
 
-    domain_html.short_description = _("domain")
-    domain_html.admin_order_field = "domain"
-    domain_html.allow_tags = True
-
+    @admin.action(description=_("url"))
     def linked_url(self, obj, text=_("open")):
         return format_html(
             '<a href="{}" target="_blank">{}</a>',
@@ -123,15 +126,13 @@ class SiteAdmin(DjangoSiteAdmin):
             text,
         )
 
-    linked_url.short_description = _("url")
-    linked_url.allow_tags = True
-
+    @admin.display(
+        description=_("is enabled"),
+        boolean=True,
+        ordering="multisiteplus_site__is_enabled",
+    )
     def is_enabled(self, obj):
         return obj.multisiteplus_site.is_enabled
-
-    is_enabled.short_description = _("is enabled")
-    is_enabled.admin_order_field = "multisiteplus_site__is_enabled"
-    is_enabled.boolean = True
 
     def update_site_action(self, request, queryset):
         for obj in queryset:
