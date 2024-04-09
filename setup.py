@@ -4,8 +4,8 @@ from setuptools import find_packages, setup
 
 
 setup(
-    name="django-multisite-plus",
-    version="0.7.2",
+    name="django-multisite-plus-fil",
+    version="0.7.3",
     author="Divio AG",
     author_email="info@divio.com",
     url="https://github.com/divio/django-multisite-plus",
