@@ -6,7 +6,7 @@ Unreleased
 ==================
 
 
-1.0.0 (Unreleased)
+1.0.0 (2024-05-16)
 ==================
 * Add compatibility with Django 4.2
 * Dropped support for Django < 3.1
