@@ -4,9 +4,17 @@ Changelog
 
 Unreleased
 ==================
+
+
+1.0.0 (2024-05-16)
+==================
 * Add compatibility with Django 4.2
 * Dropped support for Django < 3.1
 * Dropped support for python < 3.8
+* Added support for Django 4.2
+* Added support for python 3.11
+* moved to `FidelityInternational/django-multisite-plus` as the new repository
+* renamed to `django-multisite-plus-fil`
 
 
 0.7.2 (unreleased)
